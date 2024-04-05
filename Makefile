@@ -2,7 +2,7 @@ LOCATION=europe-west3-docker.pkg.dev
 PROJECT_ID=prometheus-devops-course
 REPOSITORY=gcr-docker-demo
 APP=${shell basename $(shell git remote get-url origin)}
-VERSION=1.0.5-$(shell git rev-parse --short HEAD)
+VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOS=${shell uname | tr '[:upper:]' '[:lower:]'}
 TARGETARCH=${shell dpkg --print-architecture}
 
@@ -45,5 +45,5 @@ push:
 	docker push ${LOCATION}/${PROJECT_ID}/${REPOSITORY}/${APP}:${VERSION}-${TARGETARCH}
 
 clean:
-	rm -rf kbot \
+	rm -rf kbot
 	docker rmi -f ${LOCATION}/${PROJECT_ID}/${REPOSITORY}/${APP}:${VERSION}-${TARGETARCH}
