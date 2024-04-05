@@ -1,7 +1,7 @@
-FROM golang:1.22 as builder
+FROM quay.io/projectquay/golang:1.20 as builder
 WORKDIR /go/src/app
 COPY . .
-RUN CGO_ENABLED=0 make build
+RUN CGO_ENABLED=0 make ${BUILD}
 
 FROM scratch
 WORKDIR /
