@@ -38,7 +38,7 @@ arm: format get
 	docker build . --build-arg="BUILD=arm" -t ${LOCATION}/${PROJECT_ID}/${REPOSITORY}/${APP}:${VERSION}-arm
 
 image:
-	docker build . --build-arg="BUILD=build" -t ${LOCATION}/${PROJECT_ID}/${REPOSITORY}/${APP}:${VERSION}-$(TARGETARCH)
+	docker build . --build-arg="BUILD=build" -t ${LOCATION}/${PROJECT_ID}/${REPOSITORY}/${APP}:${VERSION}-${TARGETARCH}
 	
 
 push:
