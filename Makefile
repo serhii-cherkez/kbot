@@ -19,25 +19,25 @@ get:
 	go get
 
 build: format get
-	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kbot -ldflags "-X="github.com/serhii-cherkez/bot/cmd.appVersion=${VERSION}
+	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kbot -ldflags "-X="github.com/serhii-cherkez/kbot/cmd.appVersion=${VERSION}
 
-image:
+image: build
 	docker build . --build-arg="BUILD=build" -t ${LOCATION}/${PROJECT_ID}/${REPOSITORY}/${APP}:${VERSION}-${TARGETARCH}
 
 linux: format get
-	CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH} go build -v -o kbot -ldflags "-X="github.com/serhii-cherkez/bot/cmd.appVersion=${VERSION}
+	CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH} go build -v -o kbot -ldflags "-X="github.com/serhii-cherkez/kbot/cmd.appVersion=${VERSION}
 	docker build . --build-arg="BUILD=linux" -t ${LOCATION}/${PROJECT_ID}/${REPOSITORY}/${APP}:${VERSION}-${TARGETARCH}
 
 macos: format get
-	CGO_ENABLED=0 GOOS=darwin GOARCH=${TARGETARCH} go build -v -o kbot -ldflags "-X="github.com/serhii-cherkez/bot/cmd.appVersion=${VERSION}
+	CGO_ENABLED=0 GOOS=darwin GOARCH=${TARGETARCH} go build -v -o kbot -ldflags "-X="github.com/serhii-cherkez/kbot/cmd.appVersion=${VERSION}
 	docker build . --build-arg="BUILD=macos" -t ${LOCATION}/${PROJECT_ID}/${REPOSITORY}/${APP}:${VERSION}-${TARGETARCH}
 
 windows: format get
-	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -v -o kbot -ldflags "-X="github.com/serhii-cherkez/bot/cmd.appVersion=${VERSION}
+	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -v -o kbot -ldflags "-X="github.com/serhii-cherkez/kbot/cmd.appVersion=${VERSION}
 	docker build . --build-arg="BUILD=windows" -t ${LOCATION}/${PROJECT_ID}/${REPOSITORY}/${APP}:${VERSION}-amd64 
 
 arm: format get
-	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=arm go build -v -o kbot -ldflags "-X="github.com/serhii-cherkez/bot/cmd.appVersion=${VERSION}
+	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=arm go build -v -o kbot -ldflags "-X="github.com/serhii-cherkez/kbot/cmd.appVersion=${VERSION}
 	docker build . --build-arg="BUILD=arm" -t ${LOCATION}/${PROJECT_ID}/${REPOSITORY}/${APP}:${VERSION}-arm
 
 push:
