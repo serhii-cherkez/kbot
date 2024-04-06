@@ -18,8 +18,11 @@ test:
 get:
 	go get
 
-#build: format get
-#	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kbot -ldflags "-X="github.com/serhii-cherkez/bot/cmd.appVersion=${VERSION}
+build: format get
+	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kbot -ldflags "-X="github.com/serhii-cherkez/bot/cmd.appVersion=${VERSION}
+
+image:
+	docker build . --build-arg="BUILD=build" -t ${LOCATION}/${PROJECT_ID}/${REPOSITORY}/${APP}:${VERSION}-${TARGETARCH}
 
 linux: format get
 	CGO_ENABLED=0 GOOS=linux GOARCH=${TARGETARCH} go build -v -o kbot -ldflags "-X="github.com/serhii-cherkez/bot/cmd.appVersion=${VERSION}
@@ -36,10 +39,6 @@ windows: format get
 arm: format get
 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=arm go build -v -o kbot -ldflags "-X="github.com/serhii-cherkez/bot/cmd.appVersion=${VERSION}
 	docker build . --build-arg="BUILD=arm" -t ${LOCATION}/${PROJECT_ID}/${REPOSITORY}/${APP}:${VERSION}-arm
-
-#image:
-#	docker build . --build-arg="BUILD=build" -t ${LOCATION}/${PROJECT_ID}/${REPOSITORY}/${APP}:${VERSION}-${TARGETARCH}
-	
 
 push:
 	docker push ${LOCATION}/${PROJECT_ID}/${REPOSITORY}/${APP}:${VERSION}-${TARGETARCH}
