@@ -2,7 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-autoscaling:
 replicaCount: 2
 
 image:
@@ -11,6 +10,9 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "v1.0.5-f2418ac-amd64"
   arch: amd64
+
+service:
+  port: 8080
 
 secret:
   name: kbot
