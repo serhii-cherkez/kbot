@@ -8,9 +8,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout V2
         uses: actions/checkout@v2
 
       - name: Run test
         run: make test
-    
+
+
+      - name: Checkout V3
+        uses: actions/checkout@v3
+
+
+      - name: Google auth
+        id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
