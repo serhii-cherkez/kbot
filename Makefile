@@ -7,7 +7,7 @@ TARGETOS=${shell uname | tr '[:upper:]' '[:lower:]'}
 TARGETARCH=${shell dpkg --print-architecture}
 
 format:
-	go fmt -s -w ./
+	go fmt -n -x ./
 
 lint:
 	golint
