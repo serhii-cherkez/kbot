@@ -5,8 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: cherkez
-  tag: v1.0.5-f2418ac
+  registry: ghcr.io
+  repsitory: serhii-cherkez
+  tag: $(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
+  os: linux
   arch: amd64
 
 service:
