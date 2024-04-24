@@ -25,6 +25,7 @@ jobs:
 
       - name: Build and Push
         env:
-          APP: kbot
-          REGISTRY: ${{ secrets.GOOGLE_ARTIFACT_REGISTRY }}
+          APP: kbot2
+          REPOSITORY: ghcr.io
+          NAMESPACE: serhii-cherkez
         run: make image push
