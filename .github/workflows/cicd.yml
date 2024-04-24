@@ -14,7 +14,6 @@ jobs:
       - name: Run test
         run: make test
 
-
       - name: Checkout V3
         uses: actions/checkout@v3
 
@@ -23,4 +22,5 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v1
         with:
-          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: ${{ secrets.WIF_SERVICE_ACCOUNT }}
