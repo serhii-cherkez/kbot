@@ -1,6 +1,6 @@
-REPOSITORY=ghcr.io
-NAMESPACE=serhii-cherkez
-APP=${shell basename $(shell git remote get-url origin)}
+#REPOSITORY=ghcr.io
+#NAMESPACE=serhii-cherkez
+#APP=${shell basename $(shell git remote get-url origin)}
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOS=linux
 TARGETARCH=amd64
@@ -24,7 +24,7 @@ image: build
 	docker build . --build-arg="BUILD=build" -t ${REPOSITORY}/${NAMESPACE}/${APP}:${VERSION}-${TARGETARCH}
 
 push:
-	docker push ${REPOSITORY}/${NAMESPACE}:${APP}:${VERSION}-${TARGETARCH}
+	docker push ${REPOSITORY}/${NAMESPACE}:${APP}-${VERSION}-${TARGETARCH}
 
 clean:
 	rm -rf kbot
