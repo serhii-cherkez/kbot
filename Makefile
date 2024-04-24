@@ -1,10 +1,3 @@
-#REPOSITORY=ghcr.io
-#NAMESPACE=serhii-cherkez
-#APP=${shell basename $(shell git remote get-url origin)}
-#VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
-#TARGETOS=linux
-#TARGETARCH=amd64
-
 format:
 	go fmt -n -x ./
 
