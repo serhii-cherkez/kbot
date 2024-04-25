@@ -31,7 +31,7 @@ jobs:
           APP: kbot
           REPOSITORY: ghcr.io
           NAMESPACE: serhii-cherkez
-          VERSION: $(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
+          VERSION: $(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)
           TARGETOS: linux
           TARGETARCH: amd64
         run: make image push
