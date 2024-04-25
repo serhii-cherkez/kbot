@@ -14,7 +14,7 @@ jobs:
       - name: Checkout V3
         uses: actions/checkout@v3
         with:
-          fetch_dept: 0
+          fetch_depth: 0
 
       - name: Run test
         run: make test
@@ -43,7 +43,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch_dept: 0
+          fetch_depth: 0
       - run: echo "VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
 
       - uses: mikefarah/yq@master
