@@ -26,7 +26,7 @@ pipeline {
         stage('build') {
             steps {
                 echo "BUILD FOR PLATFORM: ${params.OS} AND ARCH: ${params.ARCH}"
-                sh make build
+                sh make build TARGETOS=${params.OS} TARGETARCH=${params.ARCH}
             }
         }
         stage('image') {
