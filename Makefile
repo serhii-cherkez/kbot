@@ -14,11 +14,11 @@ build: format get
 	CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -v -o kbot -ldflags "-X="github.com/serhii-cherkez/kbot/cmd.appVersion=${VERSION}
 
 image: build
-	docker build . --build-arg="BUILD=build" -t ${REPOSITORY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
+	docker build . --build-arg="BUILD=build" -t ${REPOSITORY}/${NAMESPACE}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
 push:
-	docker push ${REPOSITORY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
+	docker push ${REPOSITORY}/${NAMESPACE}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
 
 clean:
 	rm -rf kbot
-	docker rmi -f ${REPOSITORY}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
+	docker rmi -f ${REPOSITORY}/${NAMESPACE}/${APP}:${VERSION}-${TARGETOS}-${TARGETARCH}
