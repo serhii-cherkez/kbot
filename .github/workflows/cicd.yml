@@ -32,7 +32,7 @@ jobs:
           REPOSITORY: ghcr.io
           NAMESPACE: serhii-cherkez
           TAG: $(shell git describe --tags --abbrev=0)
-          VERSION: $(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
+          VERSION: $TAG-$(shell git rev-parse --short HEAD)
           TARGETOS: linux
           TARGETARCH: amd64
         run: make image push
@@ -49,7 +49,7 @@ jobs:
 
       - uses: mikefarah/yq@master
         with: 
-          cmd: yq -i '.image.tag=strenv(VERSION)' helm/values.yaml && yq -i '.version=strenv(TAG)' helm/Chart.yaml
+          cmd: yq -i '.image.tag=strenv(VERSION)' helm/values.yaml && yq -i '.version=strenv(TAG)' helm/Chart.yaml && yq -i '.appVersion=strenv(TAG)' helm/Chart.yaml 
 
 
       - run: |
