@@ -32,7 +32,7 @@ jobs:
           REPOSITORY: ghcr.io
           NAMESPACE: serhii-cherkez
           TAG: $(shell git describe --tags --abbrev=0)
-          VERSION: $TAG-$(shell git rev-parse --short HEAD)
+          VERSION: $(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
           TARGETOS: linux
           TARGETARCH: amd64
         run: make image push
