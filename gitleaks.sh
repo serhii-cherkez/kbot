@@ -32,14 +32,14 @@ else
     # Create pre-commit file
     cd ./.git/hooks/
     touch pre-commit && chmod +x pre-commit
-    cat <<EOF > pre-commit
+    cat <<\EOF > pre-commit
 #!/bin/bash
 
 # Variables
 HOOK_ENABLED=$(git config --get hooks.pre-commit.enable)
-REPORT_PATCH=$"./gitleaks_report/report.json"
-GITLEAKS_OPTS=$"detect --redact --verbose"
-LOG_OPTS=$"HEAD~1^..HEAD"
+REPORT_PATCH="./gitleaks_report/report.json"
+GITLEAKS_OPTS="detect --redact --verbose"
+LOG_OPTS="HEAD~1^..HEAD"
 
 # Run gitleaks
 if [ "$HOOK_ENABLED" = "true" ]; then
