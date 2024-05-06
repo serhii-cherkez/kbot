@@ -11,11 +11,12 @@ install_gitleaks() {
     if  [ "$OSTYPE" = "linux" ]; then
         # Linux
         git clone https://github.com/gitleaks/gitleaks.git && cd gitleaks && make build && mv gitleaks /usr/bin/
-        echo "Gitleaks succesfuly installed";
+        cd .. && rm -rf gitleaks
+        echo "Gitleaks succesfuly installed"
     elif [ "$OSTYPE" = "darwin" ]; then
         # macOS
         brew install gitleaks
-        echo "Gitleaks succesfuly installed";
+        echo "Gitleaks succesfuly installed"
     else
         echo "Unsupported OS for automatic installation. Please install gitleaks manually."
         exit 1
@@ -23,34 +24,78 @@ install_gitleaks() {
 }
 
 # Check and install gitleaks
-if [ ! -x "$(command -v gitleaks)" ]; then
-    echo "Gitleaks is not installed"
-    install_gitleaks;
+gitleaks() {
+if [ -x "$(command -v gitleaks)" ]; then
+    echo "Gitleaks is already installed";
 else
-    echo "Gitleaks is already installed"
-fi
-
-# Create pre-commit file
-cat <<EOF > ./.git/hooks/pre-commit
+    install_gitleaks;
+    # Create pre-commit file
+    cat <<EOF > ./.git/hooks/pre-commit
 #!/bin/bash
 
 # Variables
 HOOK_ENABLED=$(git config --get hooks.pre-commit.enable)
 
 # Run gitleaks
-if [ "$HOOK_ENABLED" = "true" ]; then
+if [ "$HOOK_ENABLED" = "true" ];; then
     echo "Running gitleaks..."
-    gitleaks detect --verbose --log-opts HEAD~1^..HEAD;
+    gitleaks detect --redact --verbose --log-opts HEAD~1^..HEAD;
 
 elif [ "$HOOK_ENABLED" = "false" ]; then
-    echo "Pre-commit hook is disabled."
+    echo "Pre-commit hook is disabled"
 fi
 EOF
+fi
+}
 
 # Check and enable pre-commit hook
+hook_enable() {
 if [ "$HOOK_ENABLED" != "true" ]; then
     git config hooks.pre-commit.enable true;
-      echo "Pre-commit hook succesfuly enabled";
+      echo "Pre-commit hook succesfuly enabled"
     else
       echo "Pre-commit hook is already enabled"
 fi
+}
+
+# Check and disable pre-commit hook
+hook_disable() {
+if [ "$HOOK_ENABLED" != "false" ]; then
+      git config hooks.pre-commit.enable false;
+      echo "Pre-commit hook succesfuly disabled"
+    else
+      echo "Pre-commit hook is already disabled"
+fi
+}
+
+# Main menu
+while true; do
+    echo "Menu:"
+    echo "1. Install Gitleaks and create Pre-commit hook"
+    echo "2. Enable Pre-commit hook"
+    echo "3. Disable Pre-commit hook"
+    echo "4. Exit"
+    read -p "Enter your choice: " choice
+
+    case $choice in
+        1)
+            gitleaks
+            exit 0
+            ;;
+        2)
+            hook_enable
+            exit 0
+            ;;
+        3)
+            hook_disable
+            exit 0
+            ;;
+        4)
+            echo "Exiting..."
+            exit 0
+            ;;
+        *)
+            echo "Invalid choice. Please try again."
+            ;;
+    esac
+done
