@@ -30,16 +30,21 @@ if [ -x "$(command -v gitleaks)" ]; then
 else
     install_gitleaks;
     # Create pre-commit file
-    cat <<EOF > ./.git/hooks/pre-commit
+    cd ./.git/hooks/
+    touch pre-commit && chmod +x pre-commit
+    cat <<EOF > pre-commit
 #!/bin/bash
 
 # Variables
 HOOK_ENABLED=$(git config --get hooks.pre-commit.enable)
+REPORT_PATCH=$"./gitleaks_report/report.json"
+GITLEAKS_OPTS=$"detect --redact --verbose"
+LOG_OPTS=$"HEAD~1^..HEAD"
 
 # Run gitleaks
-if [ "$HOOK_ENABLED" = "true" ];; then
+if [ "$HOOK_ENABLED" = "true" ]; then
     echo "Running gitleaks..."
-    gitleaks detect --redact --verbose --log-opts HEAD~1^..HEAD;
+    gitleaks $GITLEAKS_OPTS --report-path $REPORT_PATCH --log-opts $LOG_OPTS;
 
 elif [ "$HOOK_ENABLED" = "false" ]; then
     echo "Pre-commit hook is disabled"
