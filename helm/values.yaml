@@ -13,5 +13,5 @@ service:
   port: 8080
 secret:
   name: kbot
-  tokenKey: 6891182615:AAHSCkN7Wxp1QHfPCQYjsDFISwdAkbWnMvs
+  tokenKey: token
   tokenName: TELE_TOKEN
