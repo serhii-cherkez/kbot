@@ -1,0 +1,26 @@
+name: SOPS-KMS-FLUX
+
+on: 
+  push:
+    branches:
+    - main
+
+jobs:
+  cloudrun:
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GITHUB_GOOGLE_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GITHUB_GOOGLE_SERVICE_ACCOUNT }}
+
+      - id: get-gke-credentials
+        uses: google-github-actions/get-gke-credentials@v2
+        with:
+          cluster_name: kbot-gke-cluster
+          location: us-central1-c
+
+      - id: get-pods
+        run: kubectl get pods
