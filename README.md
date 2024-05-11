@@ -57,3 +57,20 @@ graph TD;
     G --> H
     H --> A
 ```
+## Usage Gitleaks
+First, get the script and make it executable:
+```
+curl -O https://raw.githubusercontent.com/serhii-cherkez/kbot/main/gitleaks-install.sh
+sudo chmod +x gitleaks-install.sh
+```
+Then run it (You need to run the script as root):
+```
+sudo ./gitleaks-install.sh
+```
+You will get the choice to:
+1. Install Gitleaks and create Pre-commit hook
+2. Enable Pre-commit hook
+3. Disable Pre-commit hook
+4. Exit
+
+
