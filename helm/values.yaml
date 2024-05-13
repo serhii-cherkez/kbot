@@ -6,7 +6,7 @@ replicaCount: 3
 image:
   registry: ghcr.io
   repository: serhii-cherkez
-  tag: v1.2.8
+  tag: v1.2.8-cb690cc
   os: linux
   arch: amd64
 service:
