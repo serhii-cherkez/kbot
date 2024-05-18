@@ -13,5 +13,7 @@ service:
   port: 8080
 secret:
   name: kbot
-  tokenKey: token
-  tokenName: TELE_TOKEN
+  env: TELE_TOKEN
+  key: token
+securityContext:
+  privileged: true
