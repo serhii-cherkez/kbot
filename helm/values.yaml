@@ -6,12 +6,11 @@ replicaCount: 3
 image:
   registry: ghcr.io
   repository: serhii-cherkez
-  tag: v1.3.3-48319ec
+  tag: v1.3.4-2c6287d
   os: linux
   arch: amd64
 service:
   port: 8080
-
 secret:
   name: kbot
   tokenName: TELE_TOKEN
