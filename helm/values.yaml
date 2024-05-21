@@ -11,9 +11,8 @@ image:
   arch: amd64
 service:
   port: 8080
+
 secret:
   name: kbot
-  env: TELE_TOKEN
-  key: token
-securityContext:
-  privileged: true
+  tokenName: TELE_TOKEN
+  tokenKey: token
