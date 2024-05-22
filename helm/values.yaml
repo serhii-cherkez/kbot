@@ -6,7 +6,7 @@ replicaCount: 3
 image:
   registry: ghcr.io
   repository: serhii-cherkez
-  tag: v1.3.5-28ee31e
+  tag: v1.3.6-7bfd781
   os: linux
   arch: amd64
 service:
