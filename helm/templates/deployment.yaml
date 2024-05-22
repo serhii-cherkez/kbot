@@ -5,7 +5,9 @@ metadata:
   labels:
     {{- include "helm.labels" . | nindent 4 }}
 spec:
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "helm.selectorLabels" . | nindent 6 }}
@@ -48,15 +50,10 @@ spec:
               name: dev-mem
           env:
           - name: {{ .Values.secret.tokenName}}
-            valueFROM:
+            valueFrom:
               secretKeyRef:
                 key: {{ .Values.secret.tokenKey}}
                 name: {{ .Values.secret.name}}
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: http
-              containerPort: {{ .Values.service.port }}
-              protocol: TCP
           livenessProbe:
             {{- toYaml .Values.livenessProbe | nindent 12 }}
           readinessProbe:
