@@ -45,9 +45,6 @@ spec:
           image: {{ .Values.image.registry }}/{{ .Values.image.repository }}/{{ .Chart.Name }}:{{ .Values.image.tag }}-{{ .Values.image.os }}-{{ .Values.image.arch }}
           command: ["./kbot", "start"]
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          volumeMounts:
-            - mountPath: /dev/mem
-              name: dev-mem
           env:
           - name: {{ .Values.secret.tokenName}}
             valueFrom:
@@ -62,6 +59,8 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           {{- with .Values.volumeMounts }}
           volumeMounts:
+            - mountPath: /dev/mem
+              name: dev-mem
             {{- toYaml . | nindent 12 }}
           {{- end }}
       {{- with .Values.volumes }}
